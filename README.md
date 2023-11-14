@@ -2,8 +2,7 @@
 
 A new Flutter project.
 
-https://github.com/montasermohamed101/mychatapp_firebase_mvc/assets/75587777/1331c703-ec8d-4834-ba68-b8fe9b80474e
-
+https://github.com/montasermohamed101/mychatapp_firebase_mvc/assets/75587777/1fe05431-5f70-4666-af9c-db332f9b5f49
 
 ## Getting Started
 
