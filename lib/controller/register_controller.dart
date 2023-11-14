@@ -17,7 +17,7 @@ class RegisterController extends GetxController{
   final TextEditingController passwordController = TextEditingController();
   bool isShowen = true;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-
+  bool isLoading = false;
 
   final  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -59,6 +59,8 @@ class RegisterController extends GetxController{
         && nameController.text.isNotEmpty && file != null
     )
     {
+      isLoading = true;
+      update();
       try {
         UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: emailController.text,
@@ -74,6 +76,8 @@ class RegisterController extends GetxController{
           "uid":credential.user!.uid,
         "profileImage":profileUrl
         });
+        isLoading = false;
+        update();
         Get.offAll(HomeScreen());
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {

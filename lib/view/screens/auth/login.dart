@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                   MyTextFormField(
                       hintText: "Please Enter Your Email",
                       labelText: "Email",
-                      icon: Icon(Icons.person_outline_outlined),
+                      icon: const Icon(Icons.email_outlined),
                       controller: controller.emailController
                   ),
                   MyTextFormField(
@@ -51,13 +51,13 @@ class LoginScreen extends StatelessWidget {
                     obscureText: controller.isShowen ,
                   ),
                   const SizedBox(height: 30),
-                  MyButton(
+                  controller.isLoading ? CircularProgressIndicator() :  MyButton(
                     title: "Login",
                     onPressed: (){
                       controller.login(context);
                     },
                   ),
-
+                  const SizedBox(height: 25,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

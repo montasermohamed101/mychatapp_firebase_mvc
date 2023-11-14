@@ -12,16 +12,20 @@ class LoginController extends GetxController{
    bool isShowen = true;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
-
+  bool isLoading = false;
 
   login(BuildContext context)async{
     if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty )
       {
+        isLoading = true;
+        update();
         try {
           final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: emailController.text,
             password: passwordController.text,
           );
+          isLoading = false;
+          update();
           Get.offAll(HomeScreen());
         } on FirebaseAuthException catch (e) {
           if (e.code == 'user-not-found') {

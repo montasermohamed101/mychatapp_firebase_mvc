@@ -35,7 +35,8 @@ class RegisterScreen extends StatelessWidget {
                         radius: 65,
                         backgroundColor: Colors.orange,
                         backgroundImage: NetworkImage(
-                            "https://cdn-icons-png.flaticon.com/128/9187/9187604.png"),
+                            "https://cdn-icons-png.flaticon.com/128/9187/9187604.png",
+                        ),
                       ),
                       Positioned(
                           right: 5,
@@ -59,7 +60,7 @@ class RegisterScreen extends StatelessWidget {
                   MyTextFormField(
                       hintText: "Please Enter Your Email",
                       labelText: "Email",
-                      icon: const Icon(Icons.person_outline_outlined),
+                      icon: const Icon(Icons.email_outlined),
                       controller: controller.emailController
                   ),
                   MyTextFormField(
@@ -86,13 +87,13 @@ class RegisterScreen extends StatelessWidget {
                     obscureText: controller.isShowen ,
                   ),
                   const SizedBox(height: 30),
-                  MyButton(
+                  controller.isLoading ? CircularProgressIndicator() :   MyButton(
                     title: "Register",
                     onPressed: (){
                       controller.register(context);
                     },
                   ),
-
+                  const SizedBox(height: 25,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

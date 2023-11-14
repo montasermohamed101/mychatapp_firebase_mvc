@@ -31,22 +31,45 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
- Widget _buildUserList(){
-   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('users').snapshots();
-   return StreamBuilder(
-        stream: _usersStream,
-        builder: (context,snapshot){
-          if(snapshot.hasError){
-            return Text("Error");
-          }else if (snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(),);
-          }else{
-            return ListView(
-              children: snapshot.data!.docs.map((e) => _buildUserListItem(e)).toList(),
-            );
-          }
-        });
+
+  Widget _buildUserList() {
+    final Stream<QuerySnapshot> _usersStream =
+    FirebaseFirestore.instance.collection('users').snapshots();
+    return StreamBuilder(
+      stream: _usersStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text("Error");
+        } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          // Check if there's no data yet, return an empty container
+          return Center(child: CircularProgressIndicator(),);
+        } else {
+          return ListView(
+            children: snapshot.data!.docs
+                .map((e) => _buildUserListItem(e))
+                .toList(),
+          );
+        }
+      },
+    );
   }
+
+  // Widget _buildUserList(){
+  //  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('users').snapshots();
+  //  return StreamBuilder(
+  //       stream: _usersStream,
+  //       builder: (context,snapshot){
+  //         if(snapshot.hasError){
+  //           return Text("Error");
+  //         }else if (snapshot.connectionState == ConnectionState.waiting){
+  //           return Center(child: CircularProgressIndicator(),);
+  //         }else{
+  //           return ListView(
+  //             children: snapshot.data!.docs.map((e) => _buildUserListItem(e)).toList(),
+  //           );
+  //         }
+  //       });
+  // }
 
 Widget  _buildUserListItem(DocumentSnapshot documentSnapshot) {
   Map<String,dynamic> data = documentSnapshot.data()! as Map<String,dynamic>;
